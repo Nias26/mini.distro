@@ -1,0 +1,10 @@
+vim.keymap.set('n', '<Tab>', '<cmd>bnext<CR>')
+vim.keymap.set('n', '<S-Tab>', '<cmd>bprev<CR>')
+vim.keymap.set('n', '<Leader>f', '<cmd>lua MiniFiles.open()<CR>')
+vim.keymap.set('n', '<Leader>t', '<cmd>Telescope<CR>')
+vim.keymap.set('n', '<F5>', '<cmd>lua MiniMap.toggle()<CR>')
+vim.keymap.set('n', '<Leader>z', '<cmd>lua MiniMisc.zoom()<CR>')
+vim.keymap.set('n', '<Leader>e', '<cmd>Ex<CR>')
+vim.keymap.set('n', '<', '<cmd>lua vim.diagnostic.open_float{focusable = false}<CR>')
+vim.keymap.set('n', 'bd', '<cmd>bdel<CR>')
+vim.keymap.set('n', 'ba', function() vim.ui.input({prompt = "New Buffer"}, function(input) vim.cmd({ cmd = 'badd', args = {input} }) end)end)'
