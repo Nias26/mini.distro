@@ -29,3 +29,6 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
    command = "lua OpenDiagnosticIfNoFloat()",
    group = "lsp_diagnostics_hold",
 })
+
+vim.o.relativenumber = true
+vim.o.number = true
