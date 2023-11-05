@@ -7,4 +7,4 @@ vim.keymap.set('n', '<Leader>z', '<cmd>lua MiniMisc.zoom()<CR>')
 vim.keymap.set('n', '<Leader>e', '<cmd>Ex<CR>')
 vim.keymap.set('n', '<', '<cmd>lua vim.diagnostic.open_float{focusable = false}<CR>')
 vim.keymap.set('n', 'bd', '<cmd>bdel<CR>')
-vim.keymap.set('n', 'ba', function() vim.ui.input({prompt = "New Buffer"}, function(input) vim.cmd({ cmd = 'badd', args = {input} }) end)end)'
+vim.keymap.set('n', 'ba', function() vim.ui.input({prompt = "New Buffer"}, function(input) vim.cmd({ cmd = 'badd', args = {input} }) end)end)
