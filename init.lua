@@ -29,10 +29,5 @@ for _, file in ipairs(vim.fn.readdir(vim.fn.stdpath('config')..'/lua/mini-module
   require('mini-modules.'..file:gsub('%.lua$', ''))
 end
 
--- Source every lua file in plugins
-for _, file in ipairs(vim.fn.readdir(vim.fn.stdpath('config')..'/lua/mini-modules', [[v:val =~ '\.lua$']])) do
-  require('mini-modules.'..file:gsub('%.lua$', ''))
-end
-
 -- Require keybinds
 require("keybinds")
