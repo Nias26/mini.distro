@@ -1,51 +1,43 @@
-vim.keymap.set('n', '<Tab>', '<cmd>bnext<CR>')
-vim.keymap.set('n', '<S-Tab>', '<cmd>bprev<CR>')
-vim.keymap.set('n', '<Leader>f', '<cmd>lua MiniFiles.open()<CR>', {desc = "[Mini.files] Find Files"})
-vim.keymap.set('n', '<Leader>t', '<cmd>Telescope<CR>', {desc = "[Telescope] Open Telescope"})
-vim.keymap.set('n', '<F5>', '<cmd>lua MiniMap.toggle()<CR>')
-vim.keymap.set('n', '<Leader>z', '<cmd>lua MiniMisc.zoom()<CR>', {desc = "[Mini.misc] Zoom"})
-vim.keymap.set('n', '<Leader>e', '<cmd>Ex<CR>', {desc = "[netwr] Explore files"})
-vim.keymap.set('n', '<', '<cmd>lua vim.diagnostic.open_float{focusable = false}<CR>')
-vim.keymap.set('n', 'bd', '<cmd>bdel<CR>')
-vim.keymap.set('n', 'ba', function() vim.ui.input({prompt = "New Buffer"}, function(input) vim.cmd({ cmd = 'badd', args = {input} }) end)end)
-vim.keymap.set('n', '<Leader>p', function() vim.ui.select({
-	'buf_lines',
-	'buffers',
-	'cli',
-	'commands',
-	'diagnostic',
-	'explorer',
-	'files',
-	'git_branches',
-	'git_commits',
-	'git_files',
-	'hit_hunks',
-	'grep',
-	'grep_live',
-	'help',
-	'hipatterns',
-	'history',
-	'hl_groups',
-	'keymaps',
-	'list',
-	'lsp',
-	'makrs',
-	'oldfiles',
-	'options',
-	'registers',
-	'resume',
-	'spellsuggest',
-	'treesitter'
-},	{ prompt = "Pick " },
-function(choice)
-	return vim.cmd({ cmd = 'Pick', args = {choice}})
-end)end, {desc = "[Mini.pick] Pick ..."})
+local map = vim.keymap.set
 
--- FIXME:DOesn't work for now.. (see mini-modules/mini.base16)
--- vim.keymap.set('n', '<Leader>c', function() vim.ui.select({
--- 	'oxocarbon',
--- 	'kanagawa'
--- }, { prompt = "Change base16 Colorscheme" },
--- function(choice)
--- 	return colorscheme == choice
--- end)end)
+map("n", "<ESC><ESC>", "<cmd>nohlsearch<CR>")
+map("n", "<F3>", "<cmd>Files<CR>", { desc = "Find Files" })
+map({ "n", "v" }, "H", "<S-Left>", { desc = "Move 1 word to the left" })
+map({ "n", "v" }, "L", "<S-Right>", { desc = "Move 1 word to the right" })
+map("n", "!", "<C-w>w")
+map("n", "bd", "<cmd>bdel<CR>", { desc = "Delete current buffer" })
+map("n", "<Tab>", "<cmd>bnext<CR>", { desc = "Previous buffer" })
+map("n", "<S-Tab>", "<cmd>bprevious<CR>", { desc = "Next buffer" })
+map({ "n", "v" }, "Q", "<cmd>bd!<CR>", { desc = "Quit current buffer" })
+map({ "n", "v" }, "gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
+map({ "n", "v" }, "gr", vim.lsp.buf.references, { desc = "Go to Reference" })
+map({ "n", "v" }, "cs", vim.lsp.buf.signature_help, { desc = "Signature Help" })
+map("n", "cf", function()
+  vim.lsp.buf.format({ async = true })
+end, { desc = "Code Format" })
+map("n", "ca", "<cmd>Lspsaga code_action<CR>", { desc = "Code Actions" })
+map("n", "cd", "<cmd>Lspsaga hover_doc<CR>", { desc = "LSP Code Doc" })
+map("n", "c[", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { desc = "Go to Previous Diagnostic" })
+map("n", "c]", "<cmd>Lspsaga diagnostic_jump_next<CR>", { desc = "Go to Next Diagnostic" })
+map("v", "P", '"_dP', { desc = "Delete and paste" })
+map("n", "U", "<cmd>UndotreeToggle<CR>", { desc = "Open undo history" })
+map("n", "==", function()
+  local c = vim.fn.getpos(".")
+  local v = vim.fn.winsaveview()
+  vim.cmd.normal("ggVG==")
+  vim.fn.setpos(".", c)
+  vim.fn.winrestview(v)
+end, { desc = "Indent whole page" })
+map("n", ";;", "<cmd>Telescope<CR>", { desc = "Telescope" })
+map("n", ";g", "<cmd>Telescope live_grep<CR>", { desc = "Live Grep" })
+map("n", ";G", "<cmd>Telescope git_files<CR>", { desc = "Git Files" })
+map("n", "<F2>", "<cmd>Telescope find_files<CR>", { desc = "Find Files" })
+map("n", ";s", "<cmd>Telescope file_browser<CR>", { desc = "File Browser" })
+map("n", ";b", "<cmd>Telescope buffers<CR>", { desc = "Buffers" })
+map("n", ";r", function()
+  require("grug-far").open({
+    prefills = {
+      search = vim.fn.expand("<cword>"),
+    },
+  })
+end, { desc = "Grug-Far" })
