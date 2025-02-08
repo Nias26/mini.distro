@@ -19,5 +19,6 @@ if not ok then
 end
 deps.setup({ path = { package = path_package } })
 
+require("options")
 require("plugins")
 require("config.mini")
